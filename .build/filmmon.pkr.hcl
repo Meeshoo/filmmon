@@ -1,6 +1,7 @@
 source "docker" "selenium" {
   image = "selenium/standalone-chrome"
   commit = true
+  extra_arguments = ["--privileged"]
   changes = [
     "WORKDIR /filmmon",
     "CMD [\"main.py\"]",
