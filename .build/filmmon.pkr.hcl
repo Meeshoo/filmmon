@@ -12,7 +12,15 @@ build {
   sources = ["source.docker.debian"]
 
   provisioner "shell" {
-    inline = ["apt update; apt-get install -y python3 chromium"]
+    inline = ["apt update; apt-get install -y python3"]
+  }
+
+  provisioner "shell" {
+    inline = ["wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"]
+  }
+
+  provisioner "shell" {
+    inline = ["apt-get install -y ./google-chrome-stable_current_amd64.deb"]
   }
 
   provisioner "shell" {
