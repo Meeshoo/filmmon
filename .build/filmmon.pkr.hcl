@@ -1,6 +1,5 @@
 source "docker" "selenium" {
-  #image = "selenium/standalone-chrome"
-  image = "python"
+  image = "selenium/standalone-chrome:latest"
   commit = true
   changes = [
     "WORKDIR /filmmon",
