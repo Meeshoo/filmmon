@@ -10,6 +10,9 @@ source "docker" "selenium" {
 }
 
 build {
+  run {
+    user = "root"
+  }
   sources = ["source.docker.selenium"]
 
   provisioner "shell" {
