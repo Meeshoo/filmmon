@@ -1,5 +1,5 @@
 source "docker" "selenium" {
-  image = "selenium/standalone-chrome:latest"
+  image = "selenium/standalone-firefox"
   commit = true
   changes = [
     "WORKDIR /filmmon",
