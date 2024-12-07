@@ -12,7 +12,7 @@ build {
   sources = ["source.docker.debian"]
 
   provisioner "shell" {
-    inline = ["apt update; apt-get install -y python3 wget"]
+    inline = ["apt update; apt-get install -y python3 python3-pip wget"]
   }
 
   provisioner "shell" {
