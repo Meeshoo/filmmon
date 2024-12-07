@@ -21,6 +21,9 @@ jobs:
       - name: Install Packer
         run: sudo apt-get update && sudo apt-get install packer
 
+      - name: Install Docker plugin for Packer
+        run: sudo packer plugins install github.com/hashicorp/docker
+
       - uses: actions/checkout@v1
 
       - name: Configure AWS credentials
