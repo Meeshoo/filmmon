@@ -1,5 +1,5 @@
-source "docker" "selenium" {
-  image = "selenium/standalone-firefox"
+source "docker" "debian" {
+  image = "debian"
   commit = true
   changes = [
     "WORKDIR /filmmon",
@@ -9,7 +9,11 @@ source "docker" "selenium" {
 }
 
 build {
-  sources = ["source.docker.selenium"]
+  sources = ["source.docker.debian"]
+
+  provisioner "shell" {
+    inline = ["apt-get install -y python3 chromium-browser"]
+  }
 
   provisioner "shell" {
     inline = ["mkdir /filmmon"]
