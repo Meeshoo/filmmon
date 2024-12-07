@@ -33,7 +33,7 @@ build {
   }
 
   provisioner "shell" {
-    inline = ["pip install -r /filmmon/requirements.txt"]
+    inline = ["pip --break-system-packages install -r /filmmon/requirements.txt"]
   }
 
   post-processors {
