@@ -39,7 +39,7 @@ jobs:
         run: docker build . -t 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
 
       - name: Log in to ECR
-        run: aws ecr get-login-password --region region | docker login --username AWS --password-stdin 550661752655.dkr.ecr.eu-west-1.amazonaws.com
+        run: aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 550661752655.dkr.ecr.eu-west-1.amazonaws.com
 
       - name: Push to ECR
         run: docker push 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
