@@ -22,7 +22,7 @@ build {
   }
 
   provisioner "shell" {
-    inline = ["pip install -r requirements.txt"]
+    inline = ["pip install -r /filmmon/requirements.txt"]
   }
 
   post-processors {
