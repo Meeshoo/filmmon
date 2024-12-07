@@ -48,7 +48,7 @@ jobs:
         run: sed -i 's/ntfyPasswordHerePlease/${{ secrets.NTFY_PASS }}/' main.py
       
       - name: Packer build
-        run: cd .build && packer build filmmon.pkr.hcl
+        run: cd .build && sudo packer build filmmon.pkr.hcl
         env:
           AWS_DEFAULT_REGION: eu-west-1
           
