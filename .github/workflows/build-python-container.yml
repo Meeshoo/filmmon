@@ -1,0 +1,51 @@
+name: Build Python Container
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+  
+jobs:
+  packer_build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Add Packer key
+        run: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+      - name: Add Packer repo
+        run: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+      - name: Install Packer
+        run: sudo apt-get update && sudo apt-get install packer
+
+      - uses: actions/checkout@v1
+
+      - name: Configure AWS credentials
+        run: |
+          sudo mkdir /root/.aws; \
+            echo -e "[default]\n" | sudo tee -a /root/.aws/credentials; \
+            echo -e "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\n" | sudo tee -a /root/.aws/credentials; \
+            echo -e "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}\n" | sudo tee -a /root/.aws/credentials;
+
+      - name: Configure AWS config
+        run: |
+          echo -e "[default]\n" | sudo tee -a /root/.aws/config; \
+            echo -e "region = eu-west-1\n" | sudo tee -a /root/.aws/config;
+
+      - name: Swap in NTFY URL
+        run: sed -i 's/ntftUrlHerePlease/${{ secrets.NTFY_URL }}/' main.py
+
+      - name: Swap in NTFY username
+        run: sed -i 's/ntfyUsernameHerePlease/${{ secrets.NTFY_USER }}/' main.py
+
+      - name: Swap in NTFY password
+        run: sed -i 's/ntfyPasswordHerePlease/${{ secrets.NTFY_PASS }}/' main.py
+      
+      - name: Packer build
+        run: cd .build && packer build filmmon.pkr.hcl
+        env:
+          AWS_DEFAULT_REGION: eu-west-1
+          
