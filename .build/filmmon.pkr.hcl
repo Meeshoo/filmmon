@@ -10,7 +10,6 @@ source "docker" "selenium" {
 }
 
 build {
-  privileged = true
   sources = ["source.docker.selenium"]
 
   provisioner "shell" {
