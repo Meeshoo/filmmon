@@ -12,7 +12,7 @@ build {
   sources = ["source.docker.debian"]
 
   provisioner "shell" {
-    inline = ["apt update; apt-get install -y python3 chromium-browser"]
+    inline = ["apt update; apt-get install -y python3 chromium"]
   }
 
   provisioner "shell" {
