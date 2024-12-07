@@ -12,18 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Add Packer key
-        run: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-
-      - name: Add Packer repo
-        run: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-
-      - name: Install Packer
-        run: sudo apt-get update && sudo apt-get install packer
-
-      - name: Install Docker plugin for Packer
-        run: sudo packer plugins install github.com/hashicorp/docker
-
       - uses: actions/checkout@v1
 
       - name: Configure AWS credentials
@@ -47,8 +35,12 @@ jobs:
       - name: Swap in NTFY password
         run: sed -i 's/ntfyPasswordHerePlease/${{ secrets.NTFY_PASS }}/' main.py
       
-      - name: Packer build
-        run: cd .build && sudo packer build filmmon.pkr.hcl
-        env:
-          AWS_DEFAULT_REGION: eu-west-1
+      - name: Docker build
+        run: docker build . -t 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
+
+      - name: Log in to ECR
+        run: aws ecr get-login-password --region region | docker login --username AWS --password-stdin 550661752655.dkr.ecr.eu-west-1.amazonaws.com
+
+      - name: Push to ECR
+        run: docker push 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
           
