@@ -1,5 +1,5 @@
 source "docker" "selenium" {
-  image = "selenium/standalone-chrome:nightly"
+  image = "selenium/standalone-chrome:129.0"
   commit = true
   privileged = true
   changes = [
