@@ -16,15 +16,15 @@ jobs:
 
       - name: Configure AWS credentials
         run: |
-          sudo mkdir /root/.aws; \
-            echo -e "[default]\n" | sudo tee -a /root/.aws/credentials; \
-            echo -e "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\n" | sudo tee -a /root/.aws/credentials; \
-            echo -e "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}\n" | sudo tee -a /root/.aws/credentials;
+          sudo mkdir ~/.aws; \
+            echo -e "[default]\n" | sudo tee -a ~/.aws/credentials; \
+            echo -e "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}\n" | sudo tee -a ~/.aws/credentials; \
+            echo -e "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}\n" | sudo tee -a ~/.aws/credentials;
 
       - name: Configure AWS config
         run: |
-          echo -e "[default]\n" | sudo tee -a /root/.aws/config; \
-            echo -e "region = eu-west-1\n" | sudo tee -a /root/.aws/config;
+          echo -e "[default]\n" | sudo tee -a ~/.aws/config; \
+            echo -e "region = eu-west-1\n" | sudo tee -a ~/.aws/config;
 
       - name: Swap in NTFY URL
         run: sed -i 's/ntftUrlHerePlease/${{ secrets.NTFY_URL }}/' main.py
@@ -39,7 +39,7 @@ jobs:
         run: docker build . -t 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
 
       - name: Log in to ECR
-        run: sudo aws ecr get-login-password --region region | docker login --username AWS --password-stdin 550661752655.dkr.ecr.eu-west-1.amazonaws.com
+        run: aws ecr get-login-password --region region | docker login --username AWS --password-stdin 550661752655.dkr.ecr.eu-west-1.amazonaws.com
 
       - name: Push to ECR
         run: docker push 550661752655.dkr.ecr.eu-west-1.amazonaws.com/filmmon:latest
