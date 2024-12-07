@@ -2,7 +2,6 @@ source "docker" "selenium" {
   image = "selenium/standalone-chrome"
   commit = true
   changes = [
-    "USER root",
     "WORKDIR /filmmon",
     "CMD [\"main.py\"]",
     "ENTRYPOINT [\"python3\"]"
@@ -10,9 +9,7 @@ source "docker" "selenium" {
 }
 
 build {
-  run {
-    user = "root"
-  }
+  privileged = true
   sources = ["source.docker.selenium"]
 
   provisioner "shell" {
