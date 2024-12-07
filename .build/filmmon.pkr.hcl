@@ -1,5 +1,6 @@
 source "docker" "selenium" {
-  image = "selenium/standalone-chrome"
+  #image = "selenium/standalone-chrome"
+  image = "python"
   commit = true
   changes = [
     "WORKDIR /filmmon",
@@ -10,11 +11,6 @@ source "docker" "selenium" {
 
 build {
   sources = ["source.docker.selenium"]
-
-  #Bodge fix permissions issue sorry
-  provisioner "shell" {
-    inline = ["chmod -R +x /tmp/"]
-  }
 
   provisioner "shell" {
     inline = ["mkdir /filmmon"]
