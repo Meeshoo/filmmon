@@ -4,7 +4,7 @@ source "docker" "debian" {
   changes = [
     "WORKDIR /filmmon",
     "CMD [\"main.py\"]",
-    "ENTRYPOINT [\"python3\"]"
+    "ENTRYPOINT [\"/filmmon/.venv/bin/python3\"]"
   ]
 }
 
@@ -33,11 +33,11 @@ build {
   }
 
 provisioner "shell" {
-    inline = ["pip install --upgrade pip"]
+    inline = ["python3 -m venv /filmmon/.venv"]
   }
 
   provisioner "shell" {
-    inline = ["pip --break-system-packages install -r /filmmon/requirements.txt"]
+    inline = ["/filmmon/.venv/bin/pip install -r /filmmon/requirements.txt"]
   }
 
   post-processors {
