@@ -32,6 +32,10 @@ build {
     destination = "/filmmon"
   }
 
+provisioner "shell" {
+    inline = ["pip install --upgrade pip"]
+  }
+
   provisioner "shell" {
     inline = ["pip --break-system-packages install -r /filmmon/requirements.txt"]
   }
