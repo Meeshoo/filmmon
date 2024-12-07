@@ -27,34 +27,51 @@ class FilmStock:
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
-#chrome_options.add_argument("--no-sandbox") 
 
-# filmStocks = [
-#     FilmStock("Velvia 50 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-50-120-film-5-pack"),
-#     FilmStock("Velvia 100 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-100-120-film-5-pack"),
-#     FilmStock("Velvia 100F - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-provia-100f-120-film-5-pack"),
-# ]
+filmStocks_StuckInFilm = [
+    FilmStock("Velvia 50 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-50-120-film-5-pack"),
+    FilmStock("Velvia 100 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-100-120-film-5-pack"),
+    FilmStock("Velvia 100F - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-provia-100f-120-film-5-pack"),
+]
 
-filmStocks = [
-    FilmStock("Velvia 50 5 Pack in 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-50-120-film-5-pack"),
-    FilmStock("Gold 200 5 Pack in 120", "https://stuckinfilm.co.uk/products/kodak-gold-200-120-film-1-roll")
+filmStocks_AnalogWonderland = [
+    FilmStock("Velvia 50 - Single Roll - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703094844"),
+    FilmStock("Velvia 50 - 5 Pack - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703062076"),
+    FilmStock("Velvia 100 - Single Roll - 120","https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-100-5-pack?variant=32208694902844"),
+    FilmStock("Velvia 100 - 5 Pack - 120","https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-100-5-pack?variant=32208694870076"),
+    FilmStock("Velvia 100F - Single Roll - 120","https://analoguewonderland.co.uk/products/fuji-provia-100f-film-120-colour-iso-100-5-pack?variant=32334275084348"),
+    FilmStock("Velvia 100F - 5 Pack - 120","https://analoguewonderland.co.uk/products/fuji-provia-100f-film-120-colour-iso-100-5-pack?variant=32334275051580"),
 ]
 
 while True:
 
     driver = webdriver.Chrome(options=chrome_options)
 
-    for stock in filmStocks:
+    for stock in filmStocks_StuckInFilm:
         driver.get(stock.url)
 
         elem = driver.find_element(By.CLASS_NAME, "price__badge-sold-out")
         if elem.is_displayed() == False:
-            message = stock.name + " " + "is in stock"
+            message = stock.name + " " + "is in stock at StuckInFilm"
             print(message)
             requests.post(ntfy_url,
                 data=message,
                 headers={
-                    "Title": "Film is in stock",
+                    "Title": "Film Restocked!",
+                    "Authorization": authHeader
+                })
+
+    for stock in filmStocks_AnalogWonderland:
+        driver.get(stock.url)
+
+        elem = driver.find_element(By.CLASS_NAME, "product-form__add-button")
+        if elem.text == "Add to cart":
+            message = stock.name + " " + "is in stock at Analog Wonderland"
+            print(message)
+            requests.post(ntfy_url,
+                data=message,
+                headers={
+                    "Title": "Film Restocked!",
                     "Authorization": authHeader
                 })
 
