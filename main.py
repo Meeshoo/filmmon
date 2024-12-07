@@ -1,5 +1,6 @@
 import base64
 import requests
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -38,20 +39,24 @@ filmStocks = [
     FilmStock("Gold 200 5 Pack in 120", "https://stuckinfilm.co.uk/products/kodak-gold-200-120-film-1-roll")
 ]
 
-driver = webdriver.Chrome(options=chrome_options)
+while True:
 
-for stock in filmStocks:
-    driver.get(stock.url)
+    driver = webdriver.Chrome(options=chrome_options)
 
-    elem = driver.find_element(By.CLASS_NAME, "price__badge-sold-out")
-    if elem.is_displayed() == False:
-        message = stock.name + " " + "is in stock"
-        print(message)
-        requests.post(ntfy_url,
-            data=message,
-            headers={
-                "Title": "Film is in stock",
-                "Authorization": authHeader
-            })
+    for stock in filmStocks:
+        driver.get(stock.url)
 
-driver.close()
+        elem = driver.find_element(By.CLASS_NAME, "price__badge-sold-out")
+        if elem.is_displayed() == False:
+            message = stock.name + " " + "is in stock"
+            print(message)
+            requests.post(ntfy_url,
+                data=message,
+                headers={
+                    "Title": "Film is in stock",
+                    "Authorization": authHeader
+                })
+
+    driver.close()
+
+    time.sleep(3600)
