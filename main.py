@@ -60,6 +60,8 @@ while True:
                     "Title": "Film Restocked!",
                     "Authorization": authHeader
                 })
+            time.sleep(5)
+            exit(0)
 
     for stock in filmStocks_AnalogWonderland:
         driver.get(stock.url)
@@ -74,6 +76,8 @@ while True:
                     "Title": "Film Restocked!",
                     "Authorization": authHeader
                 })
+            time.sleep(5)
+            exit(0)
 
     driver.close()
 
