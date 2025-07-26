@@ -29,14 +29,14 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
 
 filmStocks_StuckInFilm = [
-    FilmStock("Velvia 50 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-50-120-film-5-pack"),
+    #FilmStock("Velvia 50 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-50-120-film-5-pack"),
     FilmStock("Velvia 100 - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-velvia-100-120-film-5-pack"),
     FilmStock("Velvia 100F - 5 Pack - 120", "https://stuckinfilm.co.uk/products/fujifilm-provia-100f-120-film-5-pack"),
 ]
 
 filmStocks_AnalogWonderland = [
-    FilmStock("Velvia 50 - Single Roll - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703094844"),
-    FilmStock("Velvia 50 - 5 Pack - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703062076"),
+    #FilmStock("Velvia 50 - Single Roll - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703094844"),
+    #FilmStock("Velvia 50 - 5 Pack - 120", "https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-50-5-pack?variant=32208703062076"),
     FilmStock("Velvia 100 - Single Roll - 120","https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-100-5-pack?variant=32208694902844"),
     FilmStock("Velvia 100 - 5 Pack - 120","https://analoguewonderland.co.uk/products/fuji-velvia-film-120-colour-iso-100-5-pack?variant=32208694870076"),
     FilmStock("Velvia 100F - Single Roll - 120","https://analoguewonderland.co.uk/products/fuji-provia-100f-film-120-colour-iso-100-5-pack?variant=32334275084348"),
